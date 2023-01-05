@@ -1,0 +1,43 @@
+@import "styles.less";
+
+#mainBody {
+	#bodyHeadFilters {
+		background: @sub-body;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		// -20px removes the horizontal margin from body, 20px is for spacing with body
+		margin: 0 -20px 20px;
+
+		#mainBodyHeader {
+			// Removes general margin
+			margin: 0;
+		}
+
+		#mainBodyHeader,
+		#menuSearch,
+		#menuSummary {
+			// Because of flex, the width is set to fit the content by default
+			width: 100%;
+		}
+
+		#menuSearch {
+			background: @sub-body;
+
+			box-shadow: @page-header-inner-shadow;
+		}
+
+		#menuSummary {
+			background: @body-header;
+
+			box-shadow: @page-header-inner-shadow;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+		}
+	}
+}

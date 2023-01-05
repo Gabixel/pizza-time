@@ -1,0 +1,258 @@
+@import "styles.less";
+
+#mainBody {
+	@gap: 24px;
+	@icon-size: 1.8em;
+
+	#image-gallery {
+		width: calc(100% + @gap);
+		height: auto;
+
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-content: center;
+
+		margin: (-1 * @gap / 2);
+
+		.gallery-image-container {
+			width: 400px;
+			height: 200px;
+
+			// Emulated flex gap
+			margin: @gap;
+			perspective: 1000px;
+
+			.gallery-image {
+				background: var(--img);
+
+				width: 100%;
+				height: 100%;
+
+				background-repeat: no-repeat;
+				background-position: center 60%;
+				background-size: cover;
+
+				border-radius: 10px;
+
+				cursor: pointer;
+
+				transition: box-shadow .6s, transform .6s; //, filter .3s ease-out;
+				transition-timing-function: cubic-bezier(0.1, 0, 0, 0.9);
+
+				box-shadow: 0 3px 10px 0 #000;
+
+				&:hover {
+					box-shadow: 0 5px 8px 0 #000, inset 0 200px 100px -100px rgba(255, 255, 255, .1); //, inset 0 0 5px 3px @active;
+					// filter: brightness(110%);
+					transform: rotateX(10deg);
+				}
+			}
+		}
+	}
+
+	#galleryPreview {
+		user-select: none;
+		opacity: 0;
+		visibility: hidden;
+
+		transition-property: opacity, visibility;
+		transition-duration: .2s;
+
+		position: fixed;
+		top: 0;
+		left: 0;
+
+		width: 100%;
+		height: 100%;
+		padding-top: 70px;
+		z-index: 8;
+
+		background: rgba(0, 0, 0, .7);
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: nowrap;
+
+		&.visible {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.previewHeader {
+			width: 100%;
+
+			margin: 15px 0;
+			padding: 0 20px;
+			justify-self: flex-start;
+
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: nowrap;
+
+			text-align: center;
+
+			p {
+				display: inline;
+			}
+
+			.previewTitle {
+				justify-self: center;
+
+				.info-icon {
+					margin-right: 10px;
+					font-size: 1em;
+				}
+			}
+
+			.previewClose {
+				padding: 5px 15px;
+				border-radius: 50px;
+
+				i {
+					transform: translateY(3px);
+				}
+
+				font-size: @icon-size;
+				cursor: pointer;
+
+				&:hover {
+					color: @main;
+				}
+			}
+		}
+
+		.previewCarousel {
+			flex-grow: 1;
+			width: 100%;
+			height: auto;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin: 20px 0;
+			overflow: hidden;
+
+			div {
+				display: inline;
+				display: flex;
+				align-items: center;
+			}
+
+			.scrollLeft,
+			.scrollRight {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+
+				width: 10vw;
+				min-width: @icon-size;
+				max-width: @icon-size * 2;
+				height: @icon-size * 2;
+
+				display: flex;
+				justify-content: center;
+				flex-shrink: 0;
+
+				font-size: @icon-size;
+
+				border-radius: 20px;
+
+				transition-property: background,
+					box-shadow;
+				transition-duration: .2s;
+				background: @main;
+
+				&:hover {
+					cursor: pointer;
+
+					background: fade(@active, 60%);
+					box-shadow: 0 0 10px 0 @active,
+						0 0 0 2px @active;
+				}
+
+				&.endScroll {
+					display: none;
+				}
+			}
+
+			.scrollLeft {
+				justify-self: flex-start;
+				left: 0;
+
+				margin-left: 5%;
+			}
+
+			.scrollRight {
+				justify-self: flex-end;
+				right: 0;
+
+				margin-right: 5%;
+			}
+
+			.carouselImageContainer {
+				height: 100%;
+				max-width: calc(90% - 10vw);
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				justify-self: center;
+				overflow: hidden;
+
+				.carouselImage {
+					max-width: 80%;
+					max-height: 100%;
+				}
+			}
+		}
+
+		.imageCounter {
+			justify-self: flex-end;
+			margin-bottom: 10px;
+		}
+	}
+
+	@media screen and (max-width: @mobile-width) {
+		#image-gallery {
+			width: calc(100% + @gap / 2);
+			margin: (-1 * @gap / 4);
+
+			.gallery-image-container {
+				// Emulated flex gap
+				margin: @gap / 2;
+
+				.gallery-image {
+					transition: none;
+
+					&:hover {
+						box-shadow: 0 3px 10px 0 #000;
+						transform: none;
+					}
+				}
+			}
+		}
+
+		#galleryPreview {
+			.previewCarousel {
+
+				.scrollLeft,
+				.scrollRight {
+					top: calc(100% - 20px);
+					transform: translateY(-100%);
+
+					height: @icon-size;
+				}
+
+				.carouselImageContainer {
+					max-width: 90%;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,620 @@
+@import "styles.less";
+
+#mainBody {
+	#menuProductsList {
+		//overflow: hidden;
+
+		// Flex
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		align-content: space-around;
+		align-items: center; // 'baseline' if table height is set to 100%
+
+		background: transparent;
+
+		// Entire product card
+		.product {
+			position: relative;
+			overflow: hidden;
+
+			user-select: none;
+
+			color: #000;
+			font-weight: 600;
+
+			font-size: 18px;
+
+			background: @background;
+
+			border-radius: 10px;
+
+			transition-property: height, box-shadow, transform;
+			transition-duration: .3s;
+
+			// Size and padding
+			height: @product-height;
+			padding: 10px;
+
+			// Clickable
+			cursor: pointer;
+			outline: none;
+
+			// Spacing inside of list
+			flex-basis: 48%;
+			flex-grow: 1;
+			flex-shrink: 0;
+
+			margin: 0 min(20px, 2%) min(20px, 2%) 0;
+
+			&:nth-child(even)+:last-child:nth-last-child(odd) {
+				margin-bottom: 0;
+				flex-grow: 0;
+			}
+
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+
+			// Grid
+			display: inline-grid;
+			grid-template-rows: max-content auto;
+			grid-template-columns: 110px auto min-content;
+
+			// Checkbox + product image
+			.productPreview {
+				grid-area: 1 / 2 / 3 / 1;
+				overflow: hidden;
+				// For children with 'absolute' position
+				position: relative;
+
+				width: @product-image-size;
+				height: @product-image-size;
+
+				border: 1px solid #000;
+				background: #000;
+
+				border-radius: 5px;
+				border-top-right-radius: 0;
+
+				z-index: 0;
+
+				.productCheckBox {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+
+					width: 100%;
+					height: 100%;
+
+					opacity: 0;
+					cursor: pointer;
+
+					filter: @checkbox-color;
+
+					backdrop-filter: blur(2px);
+
+					&:active {
+						filter: @checkbox-color contrast(200%) brightness(90%);
+					}
+
+					&:checked {
+						opacity: 0.7;
+						box-shadow: inset 0 0 10px 0 #000;
+
+						transition: box-shadow .2s;
+
+						&:focus {
+							box-shadow: inset 0 0 20px 0 #000;
+						}
+					}
+
+					// I should place the checkbox *before* the image because I need to check if the element placed before the image (this one) is checked or not
+					z-index: 1;
+				}
+
+				.productImage {
+					width: 100%;
+					height: 100%;
+
+					background-image: var(--img);
+					background-size: cover;
+					background-repeat: no-repeat;
+					background-position: center;
+
+					box-shadow: @product-image-shadow;
+
+					transition: filter .1s;
+				}
+
+				// "Click here to select the product" (inside a span child)
+				.productImage+p {
+					// Position
+					position: absolute;
+					top: 0;
+					left: 0;
+
+					padding: 0 10px 0;
+
+					// Dimension
+					margin: 0;
+					width: 100%;
+					height: 100%;
+
+					// Font
+					color: #fff;
+					font-size: 13px;
+					text-align: center;
+
+					// Text position
+					opacity: 0;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+
+					transition: opacity .1s;
+
+					// "Login to select products"
+					a {
+						// Style
+						color: inherit;
+						text-decoration: none;
+
+						// Positioning for the span child
+						display: flex;
+						flex-direction: column;
+						// Justify-content instead of align-items because direction is column
+						justify-content: center;
+
+						flex-grow: 1;
+
+						span {
+							height: fit-content;
+							flex-grow: 0;
+						}
+					}
+				}
+
+				// If the product is checked, the image brightness stays without hover
+				.productCheckBox:checked+.productImage {
+					filter: brightness(30%);
+				}
+			}
+
+			// The checkbox is not displayed when the product is not available or when the checkbox is disabled
+			&.unavailable .productPreview .productCheckBox,
+			& .productPreview .productCheckBox:disabled {
+				display: none;
+			}
+
+			// Title + Additional icons
+			.productTitle {
+				grid-area: 1 / 2 / 2 / 3;
+
+				width: 100%;
+				height: max-content;
+
+				font-size: 18px;
+				font-weight: bold;
+				text-transform: uppercase;
+
+				text-overflow: ellipsis;
+				display: flex;
+				align-items: center;
+				vertical-align: middle;
+				overflow: hidden;
+
+				white-space: nowrap;
+
+				// Title container
+				.productFullTitle {
+					text-overflow: inherit;
+					display: inherit;
+					overflow: inherit;
+
+					word-break: keep-all;
+
+					color: #fff;
+					fill: #fff;
+					background: #000;
+					border-radius: 0 5px 5px 0;
+
+					align-items: center;
+
+					// Moved to `span` child. In this way, I can see special characters better (like 'ü')
+					//padding: 7px 7px 4px 7px;
+					margin-right: 10px;
+
+					line-height: 1em;
+
+					// Title
+					&>span {
+						text-overflow: inherit;
+						display: inline;
+						overflow: inherit;
+
+						// Spacing for title line (extra for top because of text, or maybe I'm stoopid)
+						padding: 7px 7px 4px 7px;
+
+						// Food icon
+						img {
+							-webkit-user-drag: none;
+
+							margin-right: 5px;
+
+							// Remove weird image margin
+							margin-bottom: -2px;
+
+							height: 18px;
+							width: auto;
+
+							// Default color is black
+							filter: invert(100%);
+
+							transition: filter .1s;
+
+							&:hover {
+								// Close re-creation of the hovered original color: @product-icon-hover (#d07373) thanks to a generator
+								filter: invert(51%) sepia(25%) saturate(640%) hue-rotate(313deg) brightness(98%) contrast(117%);
+							}
+						}
+					}
+				}
+
+				// Snow Flake icon
+				i {
+					display: inline;
+					font-size: 15px;
+
+					&:hover {
+						color: @product-frost-color;
+					}
+				}
+			}
+
+			.productPriceSmall {
+				grid-area: 1 / 3 / 2 / 4;
+
+				margin-top: 2px;
+				margin-left: 10px;
+
+				align-self: center;
+
+				font-weight: bold;
+				text-align: right;
+				justify-self: right;
+
+				width: max-content;
+				height: fit-content;
+			}
+
+			.productDescription {
+				grid-area: 2 / 2 / 3 / 4;
+
+				padding: 5px 0 0 5px;
+				font-size: 1rem;
+
+				width: 100%;
+				height: 100%;
+
+				&>p {
+					&:not(.alternative) {
+						// All the ingredients are lowercased, except the first one
+						text-transform: lowercase;
+					}
+
+					&::first-letter {
+						text-transform: capitalize;
+						user-select: none;
+					}
+
+					// For the `:after`'s absolute fade-out effect when the card is not expanded
+					position: relative;
+
+					.postCooking {
+						color: @main;
+						display: inline;
+					}
+				}
+			}
+
+			.infoExtra {
+				grid-area: 4 / 1 / 5 / 3;
+
+				display: none;
+
+				flex-direction: row;
+				align-items: center;
+				justify-content: flex-start;
+
+				width: 100%;
+
+				i {
+					font-size: 20px;
+					margin-right: 10px;
+				}
+
+				.infoCook {
+					font-size: 1rem;
+				}
+
+				.productPrice {
+					font-size: 1.4em;
+					justify-self: right;
+					text-align: right;
+					flex-grow: 1;
+					white-space: nowrap;
+
+					margin-left: 20px;
+				}
+			}
+
+			.productSoldOut {
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				border: 2px solid #000;
+				box-shadow: inset 0 0 4px #000;
+
+				border-radius: inherit;
+				overflow: hidden;
+
+				width: 100%;
+				height: 100%;
+
+				color: #fff;
+
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-end;
+
+				// TODO: Not sure...
+				cursor: default;
+
+				user-select: none;
+
+				background: @product-unavailable-background;
+				backdrop-filter: blur(1px);
+
+				// Without border radius, at least on Chrome, the border seems to blur the background behind the blurred element (doesn't seem correct)
+				//border-radius: 10px;
+
+				.soldOutText {
+					position: relative;
+
+					padding: 10px 5px 5px 10px;
+					letter-spacing: 3px;
+
+					text-transform: uppercase;
+
+					border-radius: 10px 0 0 0;
+
+					background: #000;
+					box-shadow: 0 0 4px #000;
+				}
+
+
+				//text-shadow: 0 2px 4px #000;
+			}
+
+			hr {
+				grid-area: 3 / 1 / 4 / 4;
+				margin: 10px -10px 10px;
+
+				display: none;
+
+				border: none;
+				height: 1px;
+				border-top: 1px solid #000;
+			}
+
+			// Expanded version
+			&.expanded {
+				.expanded-ver();
+			}
+
+			// Hover effects
+			&:hover {
+				transform: translateY(-3px) translateZ(0);
+
+				&:not(.unavailable) {
+					.productCheckBox:not(:checked) {
+
+						// "Shadow" for the "click here" message
+						&+.productImage {
+							filter: brightness(30%);
+						}
+
+						// "Click here to select the product"
+						&~.productImage+p {
+							opacity: 1;
+						}
+					}
+				}
+			}
+
+			// If the user use TAB as navigation for checkbox
+			.productCheckBox:not(:checked):focus {
+				&+.productImage {
+					filter: brightness(30%);
+				}
+
+				&~.productImage+p {
+					opacity: 1;
+				}
+			}
+
+			// Hover effect should not appear when not hovered but focused (when non-expanded)
+			&:hover,
+			&.expanded {
+				box-shadow: 0 4px 10px 0 #000;
+			}
+
+			// Small card version
+			&:not(.expanded) {
+				.productDescription {
+					overflow: hidden;
+					height: 100%;
+
+					&>p:first-child {
+						overflow: inherit;
+						height: calc(3.4rem + 5px);
+						display: inline-block;
+
+						// Since you can't use ellipsis in multilined text, this trick will be used to "fade-out" the text
+						// source: https://css-tricks.com/line-clampin/#the-fade-out-way
+						&:after {
+							content: "";
+							text-align: right;
+							position: absolute;
+							bottom: 0;
+							right: 0;
+							width: 70%;
+							height: 1.2rem;
+							background: linear-gradient(to right, rgba(255, 255, 255, 0), @background 75%);
+						}
+					}
+				}
+			}
+
+		}
+
+		// box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0);
+		filter: opacity(1);
+
+		// The user is searching
+		&.searching {
+			transition: filter .1s;
+
+			//box-shadow: inset 0 0 0 100% rgba(0, 0, 0, .4);
+			filter: opacity(.5);
+
+			pointer-events: none;
+		}
+
+		// Empty search result
+		#emptyResultContainer {
+			width: 100%;
+
+			user-select: none;
+			margin: 50px 0;
+
+			display: flex;
+			flex: 1 0 auto;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+
+			.resultImage {
+				width: min(475px, 50%);
+				height: min(328px; auto);
+				flex-shrink: 0;
+
+				background: url('/img/search/pizza-empty.svg');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center center;
+
+				-webkit-user-drag: none;
+
+				filter: drop-shadow(0 0 10px @background);
+			}
+
+			.resultMessage {
+				color: @body;
+				font-weight: 600;
+
+				text-align: center;
+
+				// Nah
+				//box-shadow: 0 0 10px 0 @background;
+
+				letter-spacing: 1px;
+
+				background: #fff;
+				border-radius: 5px;
+
+				padding: 8px 10px 5px;
+
+				margin-left: max(7%, 20px);
+			}
+		}
+
+		@media screen and (max-width: @mobile-width) {
+			.product {
+				flex-basis: 100%;
+				margin: 0 0 10px 0;
+
+				// Hover effects
+				&:hover {
+					transform: none;
+
+					&:not(.unavailable) {
+
+						// "Shadow" for the "click here" message
+						.productCheckBox:not(:checked)+.productImage {
+							filter: brightness(30%);
+						}
+
+						// "Click here to select the product"
+						.productCheckBox:not(:checked)~.productImage+p {
+							opacity: 1;
+						}
+					}
+				}
+
+				&:hover,
+				&.expanded {
+					box-shadow: none;
+				}
+
+				.expanded-ver();
+			}
+		}
+
+		.expanded-ver() {
+			min-height: @product-height * 1.5;
+			height: auto;
+
+			grid-template-columns: 110px auto;
+
+			.productTitle {
+				grid-area: 1 / 2 / 2 / 3;
+			}
+
+			.productPriceSmall {
+				display: none;
+			}
+
+			.productDescription {
+				grid-area: 2 / 2 / 3 / 3;
+			}
+
+			hr {
+				grid-area: 3 / 1 / 4 / 3;
+
+				display: block;
+			}
+
+			.infoExtra {
+				display: flex;
+			}
+
+			.productSoldOut {
+				justify-content: end;
+				align-items: flex-end;
+				// justify-content: flex-end;
+				// align-items: flex-start;
+
+				.soldOutText {
+					border-radius: 0 10px 0 0;
+					//border-radius: 0 0 0 10px;
+				}
+			}
+		}
+	}
+}

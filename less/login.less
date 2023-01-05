@@ -1,0 +1,36 @@
+p.error {
+	display: block;
+}
+
+.loginForm,
+.registerForm {
+	user-select: none;
+
+	* {
+		display: block;
+		outline: none;
+	}
+
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	
+	transition-property: transform,
+		opacity,
+		visibility;
+	transition-duration: 1s;
+
+	&.visible {
+		visibility: visible;
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.loginForm {
+	transform: translateX(-100px);
+}
+
+.registerForm {
+	transform: translateX(100px);
+}

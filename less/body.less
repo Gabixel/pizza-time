@@ -1,0 +1,153 @@
+@import "styles.less";
+
+body {
+	//justify-content: center;
+	background-color: @background;
+
+	margin-top: 100px; //calc(70px + 30px);
+
+	#mainBody {
+		// For children with 'absolute' position
+		position: relative;
+
+		// Position and margin
+		margin: 40px 20px;
+		min-height: calc(100vh - 70px - 50px);
+
+		// Color and border radius
+		background-color: @body;
+		border-radius: @body-border-radius;
+		box-shadow: 0 0 5px 0 @body;
+
+		// Prevent overflows from corners
+		overflow: hidden;
+		// and add some padding to prevent touching vertical and horizontal borders
+		padding: 0 20px 20px;
+
+		// Font
+		color: @text;
+		font-size: 20px;
+
+		z-index: 0;
+
+		#mainBodyHeader {
+			background: @body-header;
+
+			font-family: 'Oregano',
+				'Overpass';
+			font-size: max(2rem, 10vh);
+
+			// Stroke-like effect
+			color: #fff;
+			text-shadow: @logo-stroke-shadow;
+
+			// Center
+			justify-content: center;
+			text-align: center;
+
+			// Prevent padding from parent
+			// (the minus one is to remove mainBody's padding)
+			margin: 0 -20px 25px;
+
+			// Prevent text touching bottom
+			padding: 10px 30px;
+
+			// Border radius and inner shadow
+			box-shadow: @page-header-inner-shadow;
+			border-radius: @page-header-border-radius;
+
+			opacity: 1;
+
+			&.rotate {
+				// Fade-in animation for the title
+				opacity: 0;
+				transform: none;
+
+				animation: fadeInTitle .5s ease-in-out forwards;
+			}
+		}
+	}
+
+	#scrollToTop {
+		visibility: visible;
+
+		display: flex;
+		flex-direction: row;
+
+		justify-content: center;
+		align-items: center;
+
+		position: fixed;
+		bottom: 0;
+		right: 0;
+
+		margin: 0 20px 30px 0;
+
+		height: 50px;
+		width: 50px;
+
+		border-radius: 50px;
+		overflow: hidden;
+		background: @main;
+
+		cursor: pointer;
+
+		transition-duration: .2s;
+		transition-property: box-shadow, background, opacity .5s, visibility .5s;
+		color: #fff;
+		opacity: 1;
+
+		box-shadow: 0 1px 5px 0 @main;
+
+		i {
+			font-size: 1.3em;
+		}
+
+		&:active {
+			box-shadow: 0 1px 7px 0 @active;
+			background: @active;
+		}
+
+		&.invisible {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	@media screen and (max-width: @mobile-width) {
+		margin-top: 70px;
+
+		#mainBody {
+			margin: 0;
+
+			border-radius: 0;
+
+			padding: 0 10px 10px;
+
+			min-height: calc(100vh - 70px);
+
+			#mainBodyHeader {
+				font-size: 50px;
+				border-radius: inherit;
+			}
+		}
+
+		#scrollToTop {
+			display: none;
+		}
+	}
+}
+
+@keyframes fadeInTitle {
+	1% {
+		//visibility: hidden;
+		opacity: 0;
+		transform: rotateX(-1.25turn);
+	}
+
+	100% {
+		//visibility: visible;
+		opacity: 1;
+		transform: none;
+	}
+}

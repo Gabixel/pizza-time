@@ -1,0 +1,102 @@
+// out: false
+
+// Palette
+
+@main: #C23D3D;
+
+@active: #923131;
+
+// Text-selection
+@inactive: @footer;
+
+@body: #3C3C3C;
+@sub-body: #303030;
+
+@text: #fff;
+
+@body-header: #2C2C2C;
+
+@background: #DADADA;
+
+@scrollbar: rgba(0, 0, 0, 0.5);
+
+@footer: #4D1919;
+
+// max-width for the 'media' check
+@mobile-width: 990px;
+@desktop-width: @mobile-width+1;
+
+// Input re-colors
+@checkbox-color: hue-rotate(140deg);
+
+// Colors and page styles
+
+// Text selections
+@text-selection: #fff;
+@text-selection-inactive: rgba(255, 255, 255, 0.75);
+
+// Hyperlinks
+@hyperlink: lighten(@main, 15%);
+@hyperlink-hover: darken(@main, -20%);
+
+// Navbar
+@navbar-font-size: 20px;
+@navbar-icon-size: 30px;
+@navbar-current: darken(@active, 10%);
+
+// Logo
+@logo-stroke-shadow: -1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;
+
+@body-border-radius: 50px 50px 20px 20px;
+
+@page-header-border-radius: 50px 50px min(15vh, 150px) min(15vh, 150px);
+@page-header-inner-shadow: inset 0 -10px 10px -10px #000000;
+
+// Products
+@product-height: 130px;
+@product-unavailable-background: rgba(51, 51, 51, .6);
+@product-image-size: 110px;
+@product-image-shadow: inset 0 0 10px 4px #000;
+@product-icon-hover: lighten(@active, 25%);
+@product-frost-color: #19474D;
+
+// Search bar
+@search-shadow: 0 4px 4px 0 darken(@background, 50%);
+@search-placeholder-text-shadow: 0 4px 4px lighten(@body-header, 25%);
+@search-text-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+
+// Products Summary
+@summary-title-size: 20px;
+@summary-image-shadow: inset 0 0 5px 0 #000;
+@summary-image-hover-shadow: inset 0 0 5px 3px @active;
+
+// User Profile
+@profile-title-size: 30px;
+@profile-title-text-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+
+@profile-text-size: 20px;
+
+@profile-exit-button-color: @main;
+@profile-exit-button-hover: darken(@profile-exit-button-color, 10%);
+@profile-exit-button-active: darken(@profile-exit-button-hover, 5%);
+
+@profile-password-button-hover: lighten(@main, 10%);
+
+// Admin
+// TODO: admin styles
+
+// Socials
+@twitter-blue: #1DA1F2;
+@facebook-blue: #1778F2;
+// @instagram-gradient: linear-gradient(45deg, #fda948 3%, #f66748 8%, #ec3653 18%, #c13a9c 93%);
+@instagram-orange: #FCAF45;
+
+.text-border(@color, @thickness) {
+	text-shadow: 0 @thickness 0 @color,
+		0 -@thickness 0 @color,
+		@thickness 0 0 @color,
+		-@thickness 0 0 @color;
+}

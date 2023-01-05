@@ -1,0 +1,142 @@
+@import "styles.less";
+
+#mainBody {
+	#menuSearch {
+		padding: 50px;
+
+		#searchForm {
+			position: relative;
+
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+
+			border-radius: 50px;
+			background: @background;
+
+			// transition: box-shadow .3s;
+
+			&.focused {
+				// Shadow
+				box-shadow: @search-shadow;
+			}
+
+			color: @body-header;
+
+			overflow: hidden;
+
+			// Size
+			width: 100%;
+			height: 56px;
+			font-size: 27px;
+
+			// Search icon
+			label[for="searchBar"] {
+				height: 100%;
+
+				display: inherit;
+
+				text-shadow: @search-text-shadow;
+
+				padding: 0 15px 0;
+			}
+
+			// Search bar
+			input#searchBar {
+				height: 150%;
+				padding: 5px 5px 0;
+
+				border: none;
+				outline: none;
+
+				background: inherit;
+				caret-color: @body-header;
+
+				font-size: inherit;
+
+				flex-grow: 1;
+				flex-shrink: 1;
+
+				min-width: 100px;
+
+				text-decoration: none;
+
+				text-shadow: @search-text-shadow;
+
+				margin-right: 10px;
+
+				transition: box-shadow .3s, background .3s;
+
+				&:not(:placeholder-shown) {
+					box-shadow: inset 0 0 6px 0 @body;
+					background: darken(@background, 5%);
+				}
+
+				// For some reason, this effect disappears when clicking the label
+				//transform: translateY(3px);
+
+				&::placeholder {
+					color: lighten(@body-header, 25%);
+					text-shadow: @search-text-shadow;
+				}
+			}
+
+			// Search icon & bar
+			label[for="searchBar"],
+			input#searchBar {
+				color: inherit;
+
+				font-family: inherit;
+				font-weight: 600;
+			}
+
+			// "Clear text" icon
+			div.cancelSearch {
+				display: flex;
+				visibility: hidden;
+
+				cursor: pointer;
+
+				background: @body-header;
+
+				margin-right: 10px;
+				margin-left: 0;
+
+				padding: 10px;
+
+				transition-property: transform, visibility;
+				transition-duration: .25s;
+				transition-timing-function: ease-in;
+				transform: scale(0);
+
+				color: @background;
+
+				&.visible {
+					visibility: visible;
+					transform: scale(1);
+				}
+			}
+
+			label[for="searchBar"],
+			div.cancelSearch {
+				font-size: 25px;
+
+				border-radius: 25px;
+
+				align-items: inherit;
+			}
+		}
+
+		@media screen and (max-width: @mobile-width) {
+			padding: 20px 0;
+
+			#searchForm {
+				border-radius: 0;
+
+				font-size: 1.2em;
+
+				padding: 0 10px;
+			}
+		}
+	}
+}

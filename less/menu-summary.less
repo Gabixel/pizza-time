@@ -1,0 +1,557 @@
+@import "styles.less";
+
+#mainBody>#bodyHeadFilters>#menuSummary {
+	#summaryTitle {
+		width: 100%;
+		height: auto;
+
+		flex-shrink: 0;
+
+		font-size: @summary-title-size;
+
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: center;
+
+		font-weight: bold;
+
+		margin: 10px 0 0 0;
+
+		// List icon
+		i {
+			font-size: 15px;
+			margin-right: 10px;
+
+			align-self: center;
+		}
+
+		// Summary title
+		p {
+			width: auto;
+
+			&.summCount {
+				margin-left: 10px;
+
+				&:before {
+					content: '(';
+				}
+
+				&:after {
+					content: ')';
+				}
+			}
+
+			margin: 0;
+			margin-top: 5px;
+		}
+
+		.no-checkout {
+			width: 100%;
+			flex-basis: 100%;
+			font-weight: 600;
+
+			text-align: center;
+
+			p {
+				width: auto;
+
+				padding: 5px 10px;
+				color: #fff;
+
+				background: @main;
+				box-shadow: 0 2px 10px @active;
+				border-radius: 10px;
+
+				i {
+					font-size: 1.2em;
+				}
+			}
+		}
+	}
+
+	#summaryList {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+
+		width: 100%;
+
+		max-height: var(--max);
+		height: auto;
+
+		transition: none;
+
+		margin-top: 20px;
+
+		padding: 0 10px;
+
+		overflow: hidden;
+
+		user-select: none;
+
+		.summaryElement {
+			background: #fff;
+			border-radius: 25px;
+
+			overflow: hidden;
+
+			color: #000;
+
+			max-width: var(--max-width);
+			max-height: var(--max-height);
+			opacity: 1;
+
+			width: auto;
+			height: 45px;
+			margin: 0 5px 5px 0;
+
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+
+			transition: background .1s;
+
+			// Preview image + remove icon
+			.summPreview {
+				width: 35px;
+				height: 35px;
+				margin-left: 5px;
+
+				flex-shrink: 0;
+
+				position: relative;
+
+				border-radius: inherit;
+
+				background: #000;
+				box-shadow: 0 0 0 1px #000;
+
+				overflow: inherit;
+
+				transition: box-shadow .1s;
+
+				.summImage {
+					width: 100%;
+					height: 100%;
+
+					border-radius: inherit;
+
+					position: absolute;
+					top: 0;
+					left: 0;
+
+					box-shadow: @summary-image-shadow;
+					transition: inherit;
+
+					background-image: var(--img);
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+
+				// Remove "button"
+				.summBtnRemove {
+					opacity: 0;
+
+					width: 100%;
+					height: 100%;
+
+					position: relative;
+
+					color: #fff;
+					text-shadow: 0 4px 4px #000;
+
+					cursor: pointer;
+
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					transition: opacity .1s;
+
+					i {
+						flex-grow: 1;
+						text-align: center;
+					}
+				}
+			}
+
+			.summTitle {
+				text-overflow: ellipsis;
+				overflow: inherit;
+
+				font-size: 18px;
+				font-weight: bold;
+				text-transform: uppercase;
+
+				padding-top: 3px;
+
+				width: auto;
+				flex-grow: 1;
+				flex-shrink: 0;
+
+				transition: color .1s;
+
+				img {
+					transition: filter .1s;
+					-webkit-user-drag: none;
+
+					margin: 0 5px 0;
+
+					height: 16px;
+					width: auto;
+				}
+			}
+
+			.summNumber {
+				margin-left: 5px;
+
+				flex-shrink: 0;
+
+				overflow: inherit;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				border-radius: 25px;
+
+				background: @background;
+
+				transition: background .1s;
+
+				button {
+					--shadow: rgba(0, 0, 0, .50);
+
+					width: 35px;
+					height: 35px;
+					padding: 0;
+					margin: 0;
+
+					border: none;
+					border-radius: inherit;
+
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					text-align: center;
+
+					transition: background .1s;
+
+					background: darken(@background, 20%);
+
+					&:hover,
+					&:focus {
+						background: darken(@background, 15%);
+					}
+
+					&:first-child {
+						margin-right: 5px;
+						box-shadow: 2px 0 2px 0 var(--shadow);
+					}
+
+					&:last-child {
+						margin-left: 5px;
+						box-shadow: -2px 0 2px 0 var(--shadow);
+					}
+				}
+
+				.productNumber {
+					height: 35px;
+					width: 30px;
+
+					background: transparent;
+					border: none;
+					outline: none;
+
+					transition: color .1s;
+
+					text-align: center;
+
+					font-weight: bold;
+
+					//margin-bottom: -3px;
+					line-height: .2em;
+				}
+
+				// Remove input number arrows
+				// Chrome, Safari, Edge, Opera
+				input::-webkit-outer-spin-button,
+				input::-webkit-inner-spin-button {
+					-webkit-appearance: none;
+				}
+
+				// Firefox
+				input[type=number] {
+					-moz-appearance: textfield;
+				}
+			}
+
+			// Red-styled advice
+			.advice() {
+				color: #fff;
+				background: @main;
+
+				.summPreview {
+					box-shadow: 0 0 0 1px @active;
+
+					.summImage {
+						box-shadow: @summary-image-hover-shadow;
+					}
+				}
+
+				.summTitle img {
+					filter: invert(100%);
+				}
+
+				.summNumber {
+					background: @active;
+
+					button {
+						background: #fff;
+					}
+
+					.productNumber {
+						color: #fff;
+					}
+				}
+			}
+
+			// Hover advice
+			&.deleting {
+				.advice();
+			}
+
+			// Pre-deletion animation
+			&.deleted {
+				animation: slide-out-card .7s ease forwards;
+
+				.advice();
+
+				.summPreview {
+					.summBtnRemove {
+						opacity: 1;
+					}
+				}
+			}
+
+			&:hover {
+
+				// Show the "times" icon
+				.summPreview {
+					.summBtnRemove {
+						opacity: 1;
+					}
+				}
+			}
+
+			// Last child should give margin to the right
+			&>:last-child {
+				margin-right: 10px;
+			}
+
+			@keyframes slide-in-card {
+				from {
+					max-width: 0;
+					max-height: 0;
+					opacity: 0;
+				}
+
+				to {
+					max-width: var(--max-w);
+					max-height: var(--max-h);
+					opacity: 1;
+				}
+			}
+
+			@keyframes slide-out-card {
+				0% {
+					max-width: var(--max-w);
+					max-height: var(--max-h);
+					background: @main;
+				}
+
+				75% {
+					opacity: 0;
+					background: #000;
+				}
+
+				100% {
+					max-width: 0;
+					max-height: 0;
+				}
+			}
+		}
+
+		// Checkout buttons
+		#summCheckout {
+			width: 100%;
+
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+
+			margin-top: 5px;
+
+			input {
+				width: 25%;
+				padding: 5px 0;
+
+				background: darken(@background, 10%);
+				transition: background .2s;
+
+				border: none;
+				border-radius: 10px;
+
+				font-weight: 600;
+
+				&:first-child {
+					margin-right: 10px;
+				}
+
+				&:hover {
+					background: darken(@background, 30%)
+				}
+
+				&:disabled,
+				&:disabled:hover {
+					background: darken(@background, 50%);
+					color: lighten(#000, 20%);
+				}
+			}
+		}
+
+		// When the user is not resizing the browser, use the max-height transition
+		&.notResizing {
+			transition: max-height .5s, margin .5s;
+		}
+
+		// When hidden by the appropriate button
+		&.hidden {
+			max-height: 0;
+
+			margin: 0;
+		}
+	}
+
+	#summaryHider {
+		justify-self: flex-end;
+
+		width: auto;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		font-size: 14px;
+
+		margin: 10px 0 10px 0;
+
+		background: @background;
+		color: #000;
+
+		padding: 3px 10px 4px;
+		border-radius: 25px;
+
+		user-select: none;
+
+		box-shadow: inset 0 0 8px 0 @sub-body;
+
+		// Chevron icon
+		i {
+			font-size: 15px;
+			margin-right: 10px;
+
+			align-self: center;
+
+			&::before {
+				content: '\f06e';
+			}
+		}
+
+		// Show/Hide message
+		p {
+			width: auto;
+
+			margin: 0;
+			margin-top: 5px;
+		}
+
+		&:hover {
+			p {
+				text-decoration: underline;
+			}
+
+			cursor: pointer;
+		}
+
+		.showMessage {
+			display: none;
+		}
+
+		.hideMessage {
+			display: inline-flex;
+		}
+
+		&.isHiding {
+			i::before {
+				content: '\f070';
+			}
+
+			.showMessage {
+				display: inline-flex;
+			}
+
+			.hideMessage {
+				display: none;
+			}
+		}
+	}
+
+	@media screen and (max-width: @mobile-width) {
+		transition: none;
+
+		#summaryTitle {
+			.no-checkout {
+				p>i {
+					display: block;
+					margin: 5px 0 10px 0;
+				}
+			}
+		}
+
+		#summaryList {
+			max-height: max-content;
+
+			&.hidden,
+			&.notResizing {
+				transition: none;
+			}
+
+			.summaryElement {
+				flex-basis: 100%;
+				flex-grow: 1;
+				width: 100%;
+				transition: none;
+				max-width: 100%;
+				max-height: 100%;
+
+				// Show the "times" icon
+				.summPreview {
+					.summBtnRemove {
+						opacity: 1;
+					}
+				}
+			}
+
+			#summCheckout {
+				input {
+					width: 48%;
+					padding: 20px 0;
+				}
+			}
+		}
+	}
+}

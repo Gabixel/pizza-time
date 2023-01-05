@@ -1,0 +1,25 @@
+<?php
+
+return [
+	'separator' => 'and',
+	1 => 'Tomatos',
+	2 => 'Garlic',
+	3 => 'Parsley',
+	4 => 'Mozzarella',
+	5 => 'Fresh Mushrooms',
+	6 => 'Mushrooms',
+	7 => 'Frankfurters',
+	8 => 'Fries',
+	9 => 'Olives',
+	10 => 'Spicy Salami',
+	11 => 'Basil',
+	12 => 'Tuna',
+	13 => 'Onion',
+	14 => 'Gorgonzola',
+	15 => 'Scamorza',
+	16 => 'Parmesan',
+	17 => 'Anchovies',
+	18 => 'Capers',
+	19 => 'Origan',
+	20 => 'Sausage',
+];

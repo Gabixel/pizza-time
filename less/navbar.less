@@ -1,0 +1,437 @@
+@import "styles.less";
+
+.topnav {
+	background: @main;
+	color: @text;
+
+	z-index: 10;
+
+	// Shadow
+	box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5),
+		0 0 0 100vh rgba(0, 0, 0, 0); // For the mobile view
+
+	* {
+		font-weight: normal;
+
+		// Prevents from selecting text with cursor
+		user-select: none;
+
+		// Prevents from dragging elements like link and images
+		-webkit-user-drag: none;
+
+		outline: none;
+	}
+
+	// Prevents from showing the orizontal scrollbar for the navbar
+	overflow: hidden;
+
+	// Fixed height for the navbar
+	height: 70px;
+
+	a {
+		min-height: 70px;
+	}
+
+	// Center text inside childrens (not parent since flex)
+	text-align: center;
+
+	// Font
+	font-size: @navbar-font-size;
+
+	// Flex
+	display: flex;
+
+	// Stretch items vertically and left-align the flex
+	align-items: stretch;
+
+	// Fixed position (aka 'sticky')
+	position:fixed;
+	top: 0;
+	width: 100%;
+
+	.left {
+		// Horizontally center text
+		justify-content: flex-start;
+
+		// Flex the childrens (inline, so full width)
+		display: inline-flex;
+
+		flex-grow: 1;
+
+		.pages {
+			justify-content: inherit;
+
+			display: inherit;
+
+			flex-grow: inherit;
+
+			.link {
+				flex-grow: 1;
+			}
+		}
+	}
+
+	.right {
+		// Horizontally center text
+		justify-content: flex-end;
+
+		// Flex the childrens (inline, so full width)
+		display: inline-flex;
+	}
+
+	// Logo
+	.topnav-logo {
+		// Font
+		font-family: 'Oregano',
+			'Overpass', sans-serif;
+		font-size: 50px;
+
+		// Stroke-like effect
+		text-shadow: @logo-stroke-shadow;
+
+		// Size
+		width: 250px;
+
+		// Separator
+		border-right: 1px solid #fff;
+
+		background: @body;
+
+		// Hover effect
+		&:hover,
+		&:focus {
+			background: @body-header;
+		}
+	}
+
+	// Navbar Hyperlinks and various icons
+	.link {
+		// Text color from palette
+		color: @text;
+
+		// Transition for background (hover)
+		transition-duration: .2s;
+		transition-property: background, box-shadow;
+
+		// Remove underline
+		text-decoration: none;
+
+		// Vertically center text
+		align-items: center;
+
+		// Flex the hyperlink (inline, so full width)
+		display: inline-flex;
+
+		// Horizontally center text
+		justify-content: center;
+
+		// All left links (except logo)
+		&:not(.right):not(.topnav-logo) {
+			// Size for elements 
+			max-width: 250px;
+
+			// Links will resize if there's not enough space
+			flex-grow: 1;
+
+			// Spacing between letters
+			letter-spacing: 1px;
+
+			// Hover effect
+			&:hover:not(.current):not(.active),
+			&:focus:not(.current):not(.active) {
+				background: @active;
+
+				// Failed shadow effects
+				//box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, .5);
+				//box-shadow: inset 0 -25px 15px -17px @navbar-current;
+
+				// Shadow
+				box-shadow: inset 0 -5px 0 0 @navbar-current;
+				text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+			}
+		}
+
+		cursor: pointer;
+	}
+
+	// Login and admin
+	.login,
+	.admin {
+		// Text color from palette
+		color: @text;
+
+		// Overwrite font size (originally inherited from navbar)
+		font-size: @navbar-icon-size;
+
+		// Size
+		min-width: 100px;
+	}
+
+	// Mobile hamburger bar
+	.hamburger-bar {
+		display: none;
+
+		i::before {
+			content: '\f078';
+		}
+	}
+
+	// For the current selected page
+	.current {
+		background: @navbar-current;
+
+		// Animation for loading (changed from JavaScript)
+		animation: none;
+	}
+
+	// For active stuff
+	.active {
+		background: @active;
+		text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+	}
+
+	.lang-container {
+		.link.language {
+			height: 70px;
+			min-width: 100px;
+
+			// Overwrite font size (originally inherited from navbar)
+			font-size: @navbar-icon-size;
+		}
+
+		.lang-dropdown {
+			background: @active;
+
+			min-width: 250px;
+			max-height: 50%;
+
+			// Bottom-left corner
+			border-bottom-left-radius: 10px;
+
+			// hidden → visible & 0 → 1 when hovered
+			visibility: hidden;
+			opacity: 0;
+			transform: translateX(100%);
+
+			// Makes the size "dynamic", and fits the login icon with the language one
+			position: fixed;
+
+			// Sticks the dropdown to the right
+			right: 0;
+
+			// Prevents from showing hover color from childrens
+			overflow-x: hidden;
+			overflow-y: auto;
+
+			// Shadow
+			box-shadow: 0 6px 20px -3px rgba(0, 0, 0, .5),
+				inset 0 20px 19px -20px @navbar-current;
+
+			// For the visibile-invisible switching
+			transition-property: visibility, opacity, transform;
+			transition-duration: .2s;
+
+			&.visible {
+				visibility: visible;
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			.lang {
+				// Overwrite button properties
+				display: block;
+				width: 100%;
+				outline: none;
+				border: none;
+				background-color: transparent;
+				font-size: inherit;
+
+				padding: 10px 40px;
+
+				* {
+					vertical-align: middle;
+
+					transition-property: transform, box-shadow, text-shadow;
+					transition-duration: .2s;
+				}
+
+				img {
+					margin-right: 20px;
+					height: 40px;
+					width: 40px;
+					border-radius: 3px;
+				}
+
+				// Text color from palette
+				color: @text;
+
+				&:not(:last-child) {
+					border-bottom: 3px solid @main;
+				}
+
+				&:hover,
+				&:focus {
+					background: @navbar-current;
+
+					span {
+						text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+					}
+
+					img {
+						transform: translateX(-10px);
+						// Current svgs don't respect img size, so it looks wrong
+						//box-shadow: 0 0 5px 0 #fff;
+					}
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: @mobile-width) {
+		max-height: 70px;
+		height: auto;
+
+		transition-property: max-height, box-shadow;
+		transition-duration: .4s;
+		transition-timing-function: cubic-bezier(0.100, 0.000, 0.000, 0.900);
+
+		flex-direction: column;
+		justify-content: stretch;
+		align-items: center;
+		flex-wrap: nowrap;
+
+		.topnav-logo {
+			background: @main;
+
+			&:hover,
+			&:focus {
+				background: @active;
+			}
+		}
+
+		.hamburger-bar {
+			width: min(100px, 22%);
+			display: inline-flex;
+			font-size: 1.5rem;
+		}
+
+		.topnav-logo {
+			width: calc(100% - min(100px, 22%));
+			border: none;
+			flex-shrink: 1;
+		}
+
+		.left {
+			width: 100%;
+			flex-direction: row;
+			justify-content: center;
+			flex-wrap: wrap;
+			height: auto;
+
+			.pages {
+				border-top: 1px solid @active;
+				border-bottom: 1px solid @active;
+				box-shadow: inset 0 5px 5px -5px @active;
+
+				height: 71px;
+
+				.link {
+					max-width: 100%;
+				}
+			}
+		}
+
+		.lang-container {
+			word-wrap: normal;
+
+			.lang-dropdown {
+				right: auto;
+				left: 0;
+
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				flex-basis: 50%;
+
+				// For the visibile-invisible switching
+				transition-property: visibility,
+					opacity,
+					max-height;
+				transition-duration: .2s;
+				max-height: 0;
+
+				transform: translateX(0);
+
+				&.visible {
+					visibility: visible;
+					max-height: 50%;
+				}
+
+				border-radius: 0 0 20px 20px;
+
+				.lang {
+					padding: 10px 0;
+					height: fit-content;
+					white-space: nowrap;
+					flex-grow: 1;
+					overflow-y: hidden;
+
+					&:not(:last-child) {
+						// border-bottom: 0;
+
+						&:not(:first-child):not(:nth-last-child(odd)) {
+							border-bottom: 1px solid black;
+						}
+					}
+				}
+			}
+		}
+
+		&.visible {
+			max-height: 211px;
+
+			box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5), 0 0 0 100vh rgba(0, 0, 0, 0.5);
+
+			.topnav-logo {
+				background: @active;
+
+				&:hover,
+				&:focus {
+					background: darken(@active, 5%);
+				}
+			}
+
+			.hamburger-bar {
+				i::before {
+					content: '\f077';
+				}
+			}
+
+			.lang-container {
+				.lang-dropdown {
+					.lang {
+						overflow-y: auto;
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes fadeCurrentActiveTab {
+	0% {
+		box-shadow: inset 0 -5px 0 0 @navbar-current;
+		text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+		background: @main;
+	}
+
+	99% {
+		box-shadow: inset 0 -70px 10px -5px @navbar-current;
+		background: @navbar-current;
+	}
+
+	100% {
+		box-shadow: none;
+		text-shadow: none;
+	}
+}
