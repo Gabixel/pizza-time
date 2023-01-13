@@ -8,8 +8,8 @@ require_once DOCUMENT_ROOT . '/common/user.php';
 // If the user isn't logged in or isn't an admin, give 403 error
 if (!AuthUser::is_logged_in() || !AuthUser::is_admin()) {
 	http_response_code(403);
-    include DOCUMENT_ROOT . '/403.php';
-    exit();
+	include DOCUMENT_ROOT . '/403.php';
+	exit();
 }
 
 require_once DOCUMENT_ROOT . '/common/sql.php';
@@ -47,7 +47,7 @@ include DOCUMENT_ROOT . '/common/header.php';
 				echo AdminHandler::generate_table_options($sql_query, $requested_table, !$exists);
 				?>
 			</select>
-			<a href="https://s507.altervista.org/phpmyadmin" target="_blank"><i class="fab fa-php"></i><?php echo $language['admin']['content']['direct_database']; ?></a>
+			<!-- Replace 'localhost' with your phpMyAdmin directory --><a href="localhost" target="_blank"><i class="fab fa-php"></i><?php echo $language['admin']['content']['direct_database']; ?></a>
 			<?php
 			if ($exists) {
 				$buttons = '';
