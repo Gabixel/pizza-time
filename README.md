@@ -20,6 +20,7 @@ I use an extension in Visual Studio Code called _[Easy LESS](https://marketplace
 - Some page and image file names are in Italian
 - The code in the production website is not obfuscated
 - Invoice process / user history is totally missing due to time constraints during implementation
+- The login page is not very stylised, again due to time constraints
 - There are some TODOs left, and there they will remain ¯\\\_(ツ)\_\/¯
 
 ## Specific instructions when testing the project locally
