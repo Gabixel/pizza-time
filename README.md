@@ -23,7 +23,7 @@ I use an extension in Visual Studio Code called _[Easy LESS](https://marketplace
 - There are many TODOs left, and there they will remain ¯\\\_(ツ)\_\/¯
 
 ## Specific instructions when testing the project locally
-- You should import the SQL dump I made in `initial_import.php`: it contains all basic pizza ingredients and menu items.
+- You should import the SQL dump I made in `initial_import.php`: it contains all basic tables (including pizza ingredients and menu items).
 
 - If you store the project in a subfolder / in a different directory from the `htdocs` one provided by XAMPP, inside the `httpd.conf` file you should specify this instruction (or update the existing one). Without this instruction, the root folder is different from the one that the website expects.
 	```ApacheConf
