@@ -5,7 +5,7 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) {
 }
 
 // Define a constant for the server root
-@define('DOCUMENT_ROOT', '/membri/gabrieldn5j');
+@define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 // For authentication
 @session_start();

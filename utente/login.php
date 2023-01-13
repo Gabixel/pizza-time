@@ -1,5 +1,5 @@
 <?php
-@define('DOCUMENT_ROOT', '/membri/gabrieldn5j');
+@define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 @session_start();
 

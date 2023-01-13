@@ -1,5 +1,5 @@
 <?php
-@define('DOCUMENT_ROOT', '/membri/gabrieldn5j');
+@define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 // If there's no POST request
 if (!isset($_POST['type']) || ($_POST['type'] != 'translation' && $_POST['type'] != 'search')) {

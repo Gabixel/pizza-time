@@ -4,7 +4,7 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) {
 	header('Location: /');
 }
 
-@define('DOCUMENT_ROOT', '/membri/gabrieldn5j');
+@define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 $has_login_failed = isset($_SESSION['failed_login']);
 $login_error = $has_login_failed ? $_SESSION['failed_login'] : '';

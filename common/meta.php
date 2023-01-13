@@ -4,7 +4,7 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) {
 	header('Location: /');
 }
 
-@define('DOCUMENT_ROOT', '/membri/gabrieldn5j');
+@define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 $description = htmlentities($language['head']['meta']['description']);
 $image_path = '/img/banner.png';
