@@ -1,7 +1,7 @@
 # Maintenance
 #ErrorDocument 503 /503.php
 #RewriteEngine On
-#RewriteCond %{REMOTE_ADDR} !^87.11.243.237$
+#RewriteCond %{REMOTE_ADDR} !^your_ip_here$
 #RewriteCond %{REQUEST_URI} !/503.php$
 #RewriteCond %{REQUEST_URI} !/pt-logo.png$
 #RewriteRule .* - [R=503,L]
