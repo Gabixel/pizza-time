@@ -61,11 +61,11 @@ function generate_link($url, $text, $logo_url, $color, $text_color = '#fff')
 				<p><i class="fas fa-link about-icon"></i><?php echo $language['about']['content'][5]['title']; ?></p>
 				<?php
 				generate_link('https://www.linkedin.com/in/gabdn/', 'LinkedIn', 'linkedin', '#0e76a8');
-				generate_link('https://www.twitch.tv/frigofficial', 'Twitch', 'twitch', '#6441a5');
+				generate_link('https://www.twitch.tv/gabixel', 'Twitch', 'twitch', '#6441a5');
 				generate_link('https://steamcommunity.com/id/Gabixel', 'Steam', 'steam', '#1b2838');
 				generate_link('https://github.com/Gabixel', 'GitHub', 'github', '#6a737d');
-				generate_link('https://discord.gg/8C7wWkF', 'Discord', 'discord', '#5865F2');
-				generate_link('https://open.spotify.com/user/21mpcprgj76zdhv3sns3tueoi?si=8ece96b2ec6745e3', 'Spotify', 'spotify', '#1DB954');
+				generate_link('https://twitter.com/Gabixel_', 'Twitter', 'twitter', '#1a76cc');
+				generate_link('https://osu.ppy.sh/users/8543042', 'osu!', 'osu', '#f560ae');
 				?>
 			</div>
 		</div>
