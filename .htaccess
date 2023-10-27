@@ -1,0 +1,60 @@
+# Maintenance
+#ErrorDocument 503 /503.php
+#RewriteEngine On
+#RewriteCond %{REMOTE_ADDR} !^87.11.243.237$
+#RewriteCond %{REQUEST_URI} !/503.php$
+#RewriteCond %{REQUEST_URI} !/pt-logo.png$
+#RewriteRule .* - [R=503,L]
+
+###Setup
+# Index
+Options +FollowSymLinks
+DirectoryIndex home.php index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+#HTTPS
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteCond %{HTTPS} off
+# RewriteRule .* https://gabrieldn5j.altervista.org%{REQUEST_URI} [L,R=301]
+
+# Remove php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteCond %{REQUEST_FILENAME}\.php ^(.*)\.php(.*)$
+RewriteRule .* %1.php?%2 [QSA]
+# alternative:
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Remove trailing slash (not working)
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)/$ /$1 [L,R = 301]
+</IfModule>
+
+# Cache handler
+# source: https://host-academy.it/tutorial-wordpress/how-to-tutorial-wordpress/144-browser-caching-in-wordpress-con-htaccess
+<IfModule mod_headers.c>
+    <FilesMatch "\\.(ico|gz)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    <FilesMatch "\\.(jpe?g|png|gif|swf|flv|pdf)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+    <FilesMatch "\\.(js|css)$">
+        Header set Cache-Control "max-age=3600, private"
+    </FilesMatch>
+    <filesMatch "\\.(html|htm)$">
+        Header set Cache-Control "max-age=300, public"
+    </filesMatch>
+</IfModule>
+
+### Errors
+# Error 403
+ErrorDocument 403 /403.php
+
+# Error 404
+ErrorDocument 404 /404.php
+
